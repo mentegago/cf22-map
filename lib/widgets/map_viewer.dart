@@ -415,11 +415,14 @@ class MapPainter extends CustomPainter {
       Paint()..color = scaffoldBackgroundColor,
     );
 
+    const totalColumnWidth = 158;
+    const totalColumnHeight = 103;
+
     final hall7Rect = Rect.fromLTWH(
       0.5,
-      3 / 103 * size.height,
-      size.width * 44 / 146 - 1,
-      size.height * 99 / 103,
+      3 / totalColumnHeight * size.height,
+      size.width * 50 / totalColumnWidth - 1,
+      size.height * 99 / totalColumnHeight,
     );
     canvas.drawRect(
       hall7Rect,
@@ -434,10 +437,10 @@ class MapPainter extends CustomPainter {
     );
 
     final hall8Rect = Rect.fromLTWH(
-      size.width * 44 / 146 + 0.5,
-      3 / 103 * size.height,
-      size.width * 50 / 146 - 1,
-      size.height * 99 / 103,
+      size.width * 50 / totalColumnWidth + 0.5,
+      3 / totalColumnHeight * size.height,
+      size.width * 50 / totalColumnWidth - 1,
+      size.height * 99 / totalColumnHeight,
     );
     canvas.drawRect(
       hall8Rect,
@@ -452,10 +455,10 @@ class MapPainter extends CustomPainter {
     );
 
     final hall9Rect = Rect.fromLTWH(
-      size.width * 94 / 146 + 0.5,
-      3 / 103 * size.height,
-      size.width * 52 / 146 - 1,
-      size.height * 99 / 103,
+      size.width * 100 / totalColumnWidth + 0.5,
+      3 / totalColumnHeight * size.height,
+      size.width * 58 / totalColumnWidth - 1,
+      size.height * 99 / totalColumnHeight,
     );
     canvas.drawRect(
       hall9Rect,

@@ -470,20 +470,21 @@ class _CreatorListViewState extends State<CreatorListView> {
       if (isCreatorCustomListMode) {
         return _SeeAllCreatorsButton(onShouldHideListScreen: onShouldHideListScreen);
       }
-      else {
-        return Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-          child: Text(
-            'Check us out~',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-              letterSpacing: 0.5,
-            ),
-          ),
-        );
-      }
+      // No Featured Booth this time :(
+      // else {
+      //   return Padding(
+      //     padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      //     child: Text(
+      //       'Check us out~',
+      //       style: TextStyle(
+      //         fontSize: 12,
+      //         fontWeight: FontWeight.w600,
+      //         color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+      //         letterSpacing: 0.5,
+      //       ),
+      //     ),
+      //   );
+      // }
     }
     currentIndex++;
     
@@ -685,6 +686,16 @@ class _AddAllToFavoritesButton extends StatelessWidget {
           final favoritesService = context.read<FavoritesService>();
           final beforeCount = favoritesService.favoriteCount;
           for (final creator in _filteredCreators) {
+            if (creator.id == -1) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Favorite feature is currently unavailable. We\'ll add this back as soon as we can!', style: TextStyle(color: Colors.white)),
+                  backgroundColor: Colors.red,
+                  duration: Duration(seconds: 3),
+                ),
+              );
+              return;
+            }
             favoritesService.addFavorite(creator.id);
           }
           final afterCount = favoritesService.favoriteCount;
@@ -773,6 +784,16 @@ class _SearchResultsHeader extends StatelessWidget {
               onPressed: () {
                 final creatorProvider = context.read<CreatorDataProvider>();
                 final searchResultIds = filteredCreators.map((c) => c.id).toList();
+                if (searchResultIds.contains(-1)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('"Show on Map" feature is currently unavailable. We\'ll add this back as soon as we can!', style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                  return;
+                }
                 creatorProvider.setCreatorCustomList(searchResultIds, showAddAllToFavorites: true, shouldRefreshOnReturn: false);
                 onClearSearch?.call();
                 onShouldHideListScreen();

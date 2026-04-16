@@ -346,6 +346,17 @@ class _CreatorDetailContentState extends State<CreatorDetailContent> {
   }
 
   void _shareCreator(BuildContext context) async {
+    if (widget.creator.id == -1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Share feature is currently unavailable. We\'ll add this back as soon as we can!', style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
     try {
       final shareUrl = UrlEncoding.toUrl({'creator_id': widget.creator.id});
       

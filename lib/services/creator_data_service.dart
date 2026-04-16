@@ -18,7 +18,7 @@ enum CreatorDataStatus {
 }
 
 class CreatorDataProvider extends ChangeNotifier {
-  static const String _dataUrl = 'https://cf21-config.nnt.gg/data/creator-data.json';
+  static const String _dataUrl = 'https://cf22-config.nnt.gg/data/creator-data.json';
   static const String _cachedDataKey = 'cached_creator_data';
 
   // State properties

@@ -28,6 +28,17 @@ class FavoriteButton extends StatelessWidget {
       ),
       tooltip: isFavorite ? 'Remove from Favorites' : 'Add to Favorites',
       onPressed: () async {
+        if (creator.id == -1) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Favorites feature is currently unavailable. We\'ll add this back as soon as we can!', style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 3),
+            ),
+          );
+          return;
+        }
+
         if (isFavorite) {
           context.read<FavoritesService>().removeFavorite(creator.id);
         } else {
