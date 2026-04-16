@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cf21-map-flutter",
+            "name": "cf-map-flutter",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "cf21-map-flutter (profile mode)",
+            "name": "cf-map-flutter (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "cf21-map-flutter (release mode)",
+            "name": "cf-map-flutter (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

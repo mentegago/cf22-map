@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:cf21_map_flutter/services/creator_data_service.dart';
-import 'package:cf21_map_flutter/services/favorites_service.dart';
-import 'package:cf21_map_flutter/widgets/creator_tile.dart';
-import 'package:cf21_map_flutter/widgets/creator_tile_card.dart';
+import 'package:cf_map_flutter/services/creator_data_service.dart';
+import 'package:cf_map_flutter/services/favorites_service.dart';
+import 'package:cf_map_flutter/widgets/creator_tile.dart';
+import 'package:cf_map_flutter/widgets/creator_tile_card.dart';
 import 'dart:html' as html;
 
 import 'package:collection/collection.dart';

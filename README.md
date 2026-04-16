@@ -1,10 +1,10 @@
-# CF21 Booth Map
+# CF22 Booth Map
 
-Aplikasi web untuk melihat peta booth creator di acara Comifuro 21 (CF21).
+Aplikasi web untuk melihat peta booth creator di acara Comifuro 22 (CF22).
 
 ## Fitur
 
-- 🗺️ **Peta Interaktif** - Lihat seluruh layout booth acara CF21
+- 🗺️ **Peta Interaktif** - Lihat seluruh layout booth acara CF22
 - 🔍 **Pencarian Creator** - Cari dan temukan booth creator favorit kamu
 - 🔗 **Share Link** - Bagikan link langsung ke booth creator tertentu
 
@@ -18,7 +18,7 @@ Aplikasi web untuk melihat peta booth creator di acara Comifuro 21 (CF21).
 
 ## Menambahkan Informasi Booth
 
-Jika ingin menambahkan informasi booth, silakan update `config/override.json` override di repository [https://github.com/mentegago/cf21-map-config](https://github.com/mentegago/cf21-map-config)
+Jika ingin menambahkan informasi booth, silakan update `config/override.json` override di repository [https://github.com/mentegago/cf22-map-config](https://github.com/mentegago/cf22-map-config)
 
 ## Build (Khusus buat developer)
 
@@ -42,5 +42,5 @@ App ini merupakan app eksperimentasi saya, artinya saya bakal ngutak-ngatik teru
 
 ---
 
-See you at CF21 💖
+See you at CF22 💖
 

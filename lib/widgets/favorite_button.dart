@@ -1,5 +1,5 @@
-import 'package:cf21_map_flutter/models/creator.dart';
-import 'package:cf21_map_flutter/services/favorites_service.dart';
+import 'package:cf_map_flutter/models/creator.dart';
+import 'package:cf_map_flutter/services/favorites_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

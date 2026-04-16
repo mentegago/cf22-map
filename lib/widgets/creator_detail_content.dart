@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cf21_map_flutter/widgets/favorite_button.dart';
-import 'package:cf21_map_flutter/widgets/sample_works_gallery.dart';
+import 'package:cf_map_flutter/widgets/favorite_button.dart';
+import 'package:cf_map_flutter/widgets/sample_works_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';

@@ -1,5 +1,5 @@
-name: cf21_map_flutter
-description: CF21 Creator Booth Map Viewer
+name: cf_map_flutter
+description: CF Creator Booth Map Viewer
 
 publish_to: 'none'
 

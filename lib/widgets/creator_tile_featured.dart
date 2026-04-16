@@ -1,4 +1,4 @@
-import 'package:cf21_map_flutter/widgets/creator_avatar.dart';
+import 'package:cf_map_flutter/widgets/creator_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
