@@ -293,19 +293,20 @@ class _CreatorDetailContentState extends State<CreatorDetailContent> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.open_in_new),
-                      label: const Text('Circle Page'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colorScheme.primaryContainer,
-                        foregroundColor: theme.colorScheme.onPrimaryContainer,
-                        elevation: 0,
+                    if(widget.creator.id != -1)
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.open_in_new),
+                        label: const Text('Circle Page'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.primaryContainer,
+                          foregroundColor: theme.colorScheme.onPrimaryContainer,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          final url = 'https://catalog.comifuro.net/circle/${widget.creator.id}';
+                          launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                        },
                       ),
-                      onPressed: () {
-                        final url = 'https://catalog.comifuro.net/circle/${widget.creator.id}';
-                        launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-                      },
-                    ),
                     if (widget.creator.sampleworksImages.isNotEmpty)
                       ElevatedButton.icon(
                         icon: widget.creator.sampleworksImages.length > 1 ? const Icon(Icons.photo_library) : const Icon(Icons.photo),

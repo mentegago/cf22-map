@@ -37,7 +37,7 @@ class CFMapApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'CF21 Booth Map',
+        title: 'CF22 Booth Map',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blue,
