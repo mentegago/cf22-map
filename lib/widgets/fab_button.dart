@@ -88,7 +88,7 @@ class FABButton extends StatelessWidget {
   }
 
   Future<void> _launchGitHubUrl() async {
-    final url = Uri.parse('https://github.com/mentegago/cf21-map');
+    final url = Uri.parse('https://github.com/mentegago/cf22-map');
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
