@@ -618,6 +618,20 @@
     {
       "id": -1,
       "user_id": "",
+      "name": "Udang Mentega",
+      "booths": [
+        "R-31a",
+        "R-31b"
+      ],
+      "day": "BOTH",
+      "urls": [],
+      "works_type": [],
+      "sampleworks_images": [],
+      "circle_code": "R-31ab"
+    },
+    {
+      "id": -1,
+      "user_id": "",
       "name": "Forte Comics",
       "booths": [
         "A-02a",
