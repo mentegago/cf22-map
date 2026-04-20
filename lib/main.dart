@@ -3,15 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:umami_analytics/umami_analytics.dart';
 import 'screens/map_screen.dart';
+import 'services/analytics_service.dart';
 import 'services/favorites_service.dart';
 import 'services/creator_data_service.dart';
-
-final UmamiAnalytics umami = UmamiAnalytics(
-  websiteId: const String.fromEnvironment('UMAMI_WEBSITE_ID', defaultValue: ''),
-  endpoint: const String.fromEnvironment('UMAMI_ENDPOINT', defaultValue: ''),
-  hostname: const String.fromEnvironment('UMAMI_HOSTNAME', defaultValue: ''),
-  queueConfig: const UmamiQueueInMemory(),
-);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:html' as html;
-import 'package:cf_map_flutter/main.dart' show umami;
+import 'package:cf_map_flutter/services/analytics_service.dart';
 import '../services/map_parser.dart';
 import '../services/creator_data_service.dart';
 import '../utils/int_encoding.dart';
