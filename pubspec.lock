@@ -597,6 +597,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  umami_analytics:
+    dependency: "direct main"
+    description:
+      name: umami_analytics
+      sha256: "8ef6f37fd80e108849e94b6f34cdce2d1969879bad4b163c3f44a8d5394af58e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   url_launcher:
     dependency: "direct main"
     description:

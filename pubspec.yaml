@@ -19,6 +19,7 @@ dependencies:
   provider: ^6.1.2
   cached_network_image: ^3.3.1
   photo_view: ^0.15.0
+  umami_analytics: ^0.2.0
 
 dev_dependencies:
   flutter_test:

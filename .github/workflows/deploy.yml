@@ -35,7 +35,18 @@ jobs:
         run: flutter pub get
       
       - name: Build web
-        run: flutter build web --release --base-href / --pwa-strategy=offline-first --no-web-resources-cdn
+        env:
+          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+          UMAMI_ENDPOINT: ${{ secrets.UMAMI_ENDPOINT }}
+          UMAMI_HOSTNAME: ${{ secrets.UMAMI_HOSTNAME }}
+        run: |
+          flutter build web --release \
+            --base-href / \
+            --pwa-strategy=offline-first \
+            --no-web-resources-cdn \
+            --dart-define=UMAMI_WEBSITE_ID="$UMAMI_WEBSITE_ID" \
+            --dart-define=UMAMI_ENDPOINT="$UMAMI_ENDPOINT" \
+            --dart-define=UMAMI_HOSTNAME="$UMAMI_HOSTNAME"
       
       - name: Add .nojekyll file
         run: touch build/web/.nojekyll

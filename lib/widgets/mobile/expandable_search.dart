@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cf_map_flutter/main.dart' show umami;
 import '../../models/creator.dart';
 import '../../services/creator_data_service.dart';
 import '../../utils/int_encoding.dart';
@@ -83,6 +84,15 @@ class ExpandableSearchState extends State<ExpandableSearch> {
   }
 
   void _handleCreatorTap(Creator creator) {
+    umami.trackEvent(
+      name: 'creator_selected',
+      data: {
+        'creator_id': creator.id.toString(),
+        'creator_name': creator.name,
+        'source': 'list',
+        'search_query': _searchController.text,
+      },
+    );
     _collapse();
     widget.onCreatorSelected(creator);
   }
@@ -175,6 +185,15 @@ class ExpandableSearchState extends State<ExpandableSearch> {
       }
 
       // Select the creator
+      umami.trackEvent(
+        name: 'creator_selected',
+        data: {
+          'creator_id': creator.id.toString(),
+          'creator_name': creator.name,
+          'source': 'deeplink',
+          'search_query': '',
+        },
+      );
       widget.onCreatorSelected(creator);
 
       // Clear search controller only on success
@@ -238,6 +257,15 @@ class ExpandableSearchState extends State<ExpandableSearch> {
       }
 
       // Select the creator
+      umami.trackEvent(
+        name: 'creator_selected',
+        data: {
+          'creator_id': creator.id.toString(),
+          'creator_name': creator.name,
+          'source': 'deeplink',
+          'search_query': '',
+        },
+      );
       widget.onCreatorSelected(creator);
 
       // Clear search controller only on success

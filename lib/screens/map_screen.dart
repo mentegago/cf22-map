@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:html' as html;
+import 'package:cf_map_flutter/main.dart' show umami;
 import '../services/map_parser.dart';
 import '../services/creator_data_service.dart';
 import '../utils/int_encoding.dart';
@@ -64,10 +65,18 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void _handleCreatorSelected(Creator creator) {
+  void _handleCreatorSelected(Creator creator, {String source = 'map'}) {
+    umami.trackEvent(
+      name: 'creator_selected',
+      data: {
+        'creator_id': creator.id.toString(),
+        'creator_name': creator.name,
+        'source': source,
+        'search_query': '',
+      },
+    );
     final creatorProvider = context.read<CreatorDataProvider>();
     creatorProvider.setSelectedCreator(creator);
-
     _updateQueryParametersIfNeeded(creator.id);
   }
 
@@ -157,7 +166,7 @@ class _MapScreenState extends State<MapScreen> {
             final creator = creatorProvider.getCreatorById(creatorIdParam);
             print('creator: ${creator?.name ?? 'null'}');
             if (creator != null) {
-              _handleCreatorSelected(creator);
+              _handleCreatorSelected(creator, source: 'deeplink');
             }
           });
         } else if (creatorParam != null && creatorParam.isNotEmpty) {
@@ -181,7 +190,7 @@ class _MapScreenState extends State<MapScreen> {
                 
                 // Only select if we found a match
                 if (creator.name.toLowerCase().contains(searchName)) {
-                  _handleCreatorSelected(creator);
+                  _handleCreatorSelected(creator, source: 'deeplink');
                 }
               }
             }
