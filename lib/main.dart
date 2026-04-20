@@ -10,6 +10,7 @@ final UmamiAnalytics umami = UmamiAnalytics(
   websiteId: const String.fromEnvironment('UMAMI_WEBSITE_ID', defaultValue: ''),
   endpoint: const String.fromEnvironment('UMAMI_ENDPOINT', defaultValue: ''),
   hostname: const String.fromEnvironment('UMAMI_HOSTNAME', defaultValue: ''),
+  queueConfig: const UmamiQueueInMemory(),
 );
 
 void main() async {
