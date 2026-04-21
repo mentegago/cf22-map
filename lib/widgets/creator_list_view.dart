@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../models/creator.dart';
+import '../services/analytics_service.dart';
 import '../services/settings_provider.dart';
 import '../utils/fuzzy_score.dart';
 import '../utils/string_utils.dart';
@@ -868,6 +869,13 @@ class _FandomSuggestions extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      umami.trackEvent(
+                        name: 'fandom_tapped',
+                        data: {
+                          'source': 'search_suggestion',
+                          'fandom': fandom,
+                        },
+                      );
                       onSuggestionSelected?.call(fandom);
                     },
                     backgroundColor: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
