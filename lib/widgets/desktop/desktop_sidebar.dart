@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cf_map_flutter/services/analytics_service.dart';
 import '../../models/creator.dart';
 import '../../services/creator_data_service.dart';
 import '../../utils/int_encoding.dart';
@@ -10,7 +9,7 @@ import '../creator_list_view.dart';
 class DesktopSidebar extends StatefulWidget {
   final List<Creator> creators;
   final Creator? selectedCreator;
-  final Function(Creator) onCreatorSelected;
+  final void Function(Creator, {required String source, String searchQuery}) onCreatorSelected;
   final VoidCallback? onClear;
 
   const DesktopSidebar({
@@ -71,19 +70,10 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
   }
 
   void _handleCreatorSelected(Creator creator) {
-    umami.trackEvent(
-      name: 'creator_selected',
-      data: {
-        'creator_id': creator.id.toString(),
-        'creator_name': creator.name,
-        'source': 'list',
-        'search_query': _searchController.text,
-      },
-    );
     setState(() {
       _showSearchList = false;
     });
-    widget.onCreatorSelected(creator);
+    widget.onCreatorSelected(creator, source: 'list', searchQuery: _searchController.text);
   }
 
   @override
@@ -332,16 +322,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       }
 
       // Select the creator
-      umami.trackEvent(
-        name: 'creator_selected',
-        data: {
-          'creator_id': creator.id.toString(),
-          'creator_name': creator.name,
-          'source': 'deeplink',
-          'search_query': '',
-        },
-      );
-      widget.onCreatorSelected(creator);
+      widget.onCreatorSelected(creator, source: 'deeplink');
 
       // Clear search controller only on success
       _searchController.clear();
@@ -399,16 +380,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       }
 
       // Select the creator
-      umami.trackEvent(
-        name: 'creator_selected',
-        data: {
-          'creator_id': creator.id.toString(),
-          'creator_name': creator.name,
-          'source': 'deeplink',
-          'search_query': '',
-        },
-      );
-      widget.onCreatorSelected(creator);
+      widget.onCreatorSelected(creator, source: 'deeplink');
 
       // Clear search controller only on success
       _searchController.clear();

@@ -12,7 +12,7 @@ class MapScreenDesktopView extends StatelessWidget {
   final List<MergedCell> mergedCells;
   final int rows;
   final int cols;
-  final ValueChanged<Creator> onCreatorSelected;
+  final void Function(Creator, {required String source, String searchQuery}) onCreatorSelected;
   final Future<void> Function()? onClearSelection;
   final void Function(String?) onBoothTap;
 

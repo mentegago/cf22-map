@@ -65,14 +65,14 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void _handleCreatorSelected(Creator creator, {String source = 'map'}) {
+  void _handleCreatorSelected(Creator creator, {required String source, String searchQuery = ''}) {
     umami.trackEvent(
       name: 'creator_selected',
       data: {
         'creator_id': creator.id.toString(),
         'creator_name': creator.name,
         'source': source,
-        'search_query': '',
+        'search_query': searchQuery,
       },
     );
     final creatorProvider = context.read<CreatorDataProvider>();
@@ -90,25 +90,23 @@ class _MapScreenState extends State<MapScreen> {
 
   void _handleBoothTap(String? boothId) {
     if (boothId == null) return;
-    
+
     final creatorProvider = context.read<CreatorDataProvider>();
     final boothToCreators = creatorProvider.boothToCreators;
     if (boothToCreators == null) return;
-    
+
     final creators = boothToCreators[boothId];
     if (creators == null || creators.isEmpty) return;
-    
+
     if (creators.length == 1) {
-      // Only one creator - show detail immediately (don't center)
-      _handleCreatorSelected(creators.first);
+      _handleCreatorSelected(creators.first, source: 'map');
     } else {
-      // Multiple creators - show selector
       showModalBottomSheet(
         context: context,
         builder: (context) => CreatorSelectorSheet(
           boothId: boothId,
           creators: creators,
-          onCreatorSelected: (creator) => _handleCreatorSelected(creator),
+          onCreatorSelected: (creator) => _handleCreatorSelected(creator, source: 'map'),
         ),
       );
     }

@@ -14,7 +14,7 @@ class MapScreenMobileView extends StatefulWidget {
   final int rows;
   final int cols;
   final Future<void> Function() onClearSelection;
-  final ValueChanged<Creator> onCreatorSelected;
+  final void Function(Creator, {required String source, String searchQuery}) onCreatorSelected;
   final void Function(String?) onBoothTap;
 
   const MapScreenMobileView({
