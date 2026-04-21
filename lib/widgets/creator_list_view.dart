@@ -343,8 +343,13 @@ class _CreatorListViewState extends State<CreatorListView> {
                   label: Text('Card'),
                   icon: Icon(Icons.view_agenda)),
             ],
-            onSelectionChanged: (value) =>
-                context.read<SettingsProvider>().setUseCardView(value.first),
+            onSelectionChanged: (value) {
+              umami.trackEvent(
+                name: 'list_mode_changed',
+                data: {'mode': value.first ? 'card' : 'compact'},
+              );
+              context.read<SettingsProvider>().setUseCardView(value.first);
+            },
           ),
         ),
       ],
