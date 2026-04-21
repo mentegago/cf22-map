@@ -36,25 +36,28 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _loadMapData() async {
     try {
       final startTime = DateTime.now();
-      
+
       // Load map data
       final grid = await MapParser.loadMapData();
-      
-      print('Map data loaded in ${DateTime.now().difference(startTime).inMilliseconds}ms');
-      
+
+      print(
+          'Map data loaded in ${DateTime.now().difference(startTime).inMilliseconds}ms');
+
       final mergeStart = DateTime.now();
       final merged = MapParser.mergeCells(grid);
-      print('Cells merged in ${DateTime.now().difference(mergeStart).inMilliseconds}ms');
-      print('Total cells: ${grid.length * (grid.isEmpty ? 0 : grid[0].length)}');
+      print(
+          'Cells merged in ${DateTime.now().difference(mergeStart).inMilliseconds}ms');
+      print(
+          'Total cells: ${grid.length * (grid.isEmpty ? 0 : grid[0].length)}');
       print('Merged to: ${merged.length} cells');
-      
+
       setState(() {
         _mergedCells = merged;
         _rows = grid.length;
         _cols = grid.isEmpty ? 0 : grid[0].length;
         _isLoading = false;
       });
-      
+
       // Handle query parameter if booth is specified in URL
       _handleQueryParameters();
     } catch (e) {
@@ -65,7 +68,8 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void _handleCreatorSelected(Creator creator, {required String source, String searchQuery = ''}) {
+  void _handleCreatorSelected(Creator creator,
+      {required String source, String searchQuery = ''}) {
     umami.trackEvent(
       name: 'creator_selected',
       data: {
@@ -106,7 +110,8 @@ class _MapScreenState extends State<MapScreen> {
         builder: (context) => CreatorSelectorSheet(
           boothId: boothId,
           creators: creators,
-          onCreatorSelected: (creator) => _handleCreatorSelected(creator, source: 'map'),
+          onCreatorSelected: (creator) =>
+              _handleCreatorSelected(creator, source: 'map'),
         ),
       );
     }
@@ -116,10 +121,12 @@ class _MapScreenState extends State<MapScreen> {
     if (kIsWeb) {
       final uri = Uri.parse(html.window.location.href);
       final creatorParam = uri.queryParameters['creator'];
-      final creatorIdParam = int.tryParse(uri.queryParameters['creator_id'] ?? '');
-      
+      final creatorIdParam =
+          int.tryParse(uri.queryParameters['creator_id'] ?? '');
+
       if (creatorParam != null || creatorIdParam != null) {
-        html.window.history.pushState(null, '', creatorId != null ? '/?creator_id=$creatorId' : '/');
+        html.window.history.pushState(
+            null, '', creatorId != null ? '/?creator_id=$creatorId' : '/');
       }
     }
   }
@@ -129,17 +136,28 @@ class _MapScreenState extends State<MapScreen> {
       try {
         final uri = Uri.parse(html.window.location.href);
         final creatorParam = uri.queryParameters['creator'];
-        final creatorIdParam = int.tryParse(uri.queryParameters['creator_id'] ?? '');
+        final creatorIdParam =
+            int.tryParse(uri.queryParameters['creator_id'] ?? '');
         final compressedCreatorCustomListParam = uri.queryParameters['list'];
         final creatorCustomListParam = uri.queryParameters['custom_list'];
 
         if (compressedCreatorCustomListParam != null) {
           final creatorProvider = context.read<CreatorDataProvider>();
-          final idList = IntEncoding.stringCodeToInts(compressedCreatorCustomListParam);
+          final idList =
+              IntEncoding.stringCodeToInts(compressedCreatorCustomListParam);
 
           if (idList.isNotEmpty) {
             creatorProvider.setCreatorCustomList(idList);
           }
+
+          umami.trackEvent(
+            name: 'creator_custom_list',
+            data: {
+              'count': idList.length.toString(),
+              'source': 'deeplink',
+              'param': compressedCreatorCustomListParam,
+            },
+          );
         }
 
         if (creatorCustomListParam != null) {
@@ -150,13 +168,12 @@ class _MapScreenState extends State<MapScreen> {
               .where((id) => id != null)
               .cast<int>()
               .toList();
-          
 
           if (idList.isNotEmpty) {
             creatorProvider.setCreatorCustomList(idList);
           }
         }
-        
+
         if (creatorIdParam != null) {
           Future.delayed(const Duration(milliseconds: 300), () {
             if (!mounted) return;
@@ -169,8 +186,11 @@ class _MapScreenState extends State<MapScreen> {
           });
         } else if (creatorParam != null && creatorParam.isNotEmpty) {
           // Decode and normalize name (replace + with space, trim)
-          final searchName = Uri.decodeComponent(creatorParam.replaceAll('+', ' ')).trim().toLowerCase();
-          
+          final searchName =
+              Uri.decodeComponent(creatorParam.replaceAll('+', ' '))
+                  .trim()
+                  .toLowerCase();
+
           // Small delay to ensure UI is ready
           Future.delayed(const Duration(milliseconds: 300), () {
             if (mounted) {
@@ -182,10 +202,11 @@ class _MapScreenState extends State<MapScreen> {
                   (c) => c.name.toLowerCase().contains(searchName),
                   orElse: () => creators.firstWhere(
                     (c) => c.name.toLowerCase() == searchName,
-                    orElse: () => creators.first, // fallback, won't be used if null check below
+                    orElse: () => creators
+                        .first, // fallback, won't be used if null check below
                   ),
                 );
-                
+
                 // Only select if we found a match
                 if (creator.name.toLowerCase().contains(searchName)) {
                   _handleCreatorSelected(creator, source: 'deeplink');
@@ -202,13 +223,15 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.select((CreatorDataProvider creatorProvider) => creatorProvider.isLoading);
-    final error = context.select((CreatorDataProvider creatorProvider) => creatorProvider.error);
-    
+    final isLoading = context.select(
+        (CreatorDataProvider creatorProvider) => creatorProvider.isLoading);
+    final error = context
+        .select((CreatorDataProvider creatorProvider) => creatorProvider.error);
+
     return Scaffold(
-      body: Stack(
-        children: [
-          _isLoading || isLoading
+        body: Stack(
+      children: [
+        _isLoading || isLoading
             ? const Center(child: CircularProgressIndicator())
             : _error != null || error != null
                 ? Center(
@@ -238,11 +261,10 @@ class _MapScreenState extends State<MapScreen> {
                 : _isDesktop
                     ? _buildDesktopLayout(context)
                     : _buildMobileLayout(context),
-          // Clean snackbar listener
-          _StatusSnackbarListener(),
-        ],
-      )
-    );
+        // Clean snackbar listener
+        _StatusSnackbarListener(),
+      ],
+    ));
   }
 
   bool get _isDesktop {
@@ -306,4 +328,3 @@ class _StatusSnackbarListenerState extends State<_StatusSnackbarListener> {
     );
   }
 }
-

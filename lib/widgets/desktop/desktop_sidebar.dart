@@ -1,3 +1,4 @@
+import 'package:cf_map_flutter/services/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/creator.dart';
@@ -9,7 +10,8 @@ import '../creator_list_view.dart';
 class DesktopSidebar extends StatefulWidget {
   final List<Creator> creators;
   final Creator? selectedCreator;
-  final void Function(Creator, {required String source, String searchQuery}) onCreatorSelected;
+  final void Function(Creator, {required String source, String searchQuery})
+      onCreatorSelected;
   final VoidCallback? onClear;
 
   const DesktopSidebar({
@@ -33,7 +35,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
   @override
   void initState() {
     super.initState();
-    
+
     // Listen to focus changes - show search list when search is focused
     _searchFocusNode.addListener(() {
       if (mounted && _searchFocusNode.hasFocus) {
@@ -47,7 +49,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
   @override
   void didUpdateWidget(DesktopSidebar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
+
     // Hide search list when creator is selected (from search list or map)
     // This handles both initial selection and changing selection
     if (widget.selectedCreator != null && _showSearchList) {
@@ -73,7 +75,8 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
     setState(() {
       _showSearchList = false;
     });
-    widget.onCreatorSelected(creator, source: 'list', searchQuery: _searchController.text);
+    widget.onCreatorSelected(creator,
+        source: 'list', searchQuery: _searchController.text);
   }
 
   @override
@@ -96,7 +99,8 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
         children: [
           // Search section
           Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
             ),
@@ -160,7 +164,8 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
               decoration: const InputDecoration(
                 hintText: 'Search name, booth, or fandom...',
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               ),
               onChanged: _performSearch,
               onSubmitted: _handleSearchSubmitted,
@@ -172,7 +177,9 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
             builder: (context, value, _) {
               if (value.text.isNotEmpty) {
                 return IconButton(
-                  icon: Icon(Icons.close, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), size: 20),
+                  icon: Icon(Icons.close,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                      size: 20),
                   onPressed: () {
                     _searchController.clear();
                     widget.onClear?.call();
@@ -181,7 +188,9 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
                 );
               } else if (widget.selectedCreator != null) {
                 return IconButton(
-                  icon: Icon(Icons.close, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), size: 20),
+                  icon: Icon(Icons.close,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                      size: 20),
                   onPressed: widget.onClear,
                 );
               } else {
@@ -217,13 +226,12 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
     );
   }
 
-
   Widget _buildCreatorDetail(BuildContext context, ThemeData theme) {
     final creator = widget.selectedCreator;
     if (creator == null) {
       return const SizedBox.shrink();
     }
-    
+
     return SingleChildScrollView(
       child: CreatorDetailContent(
         creator: creator,
@@ -240,7 +248,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       _searchController.text = query;
       _showSearchList = true;
     });
-    
+
     _performSearch(query);
   }
 
@@ -322,7 +330,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       }
 
       // Select the creator
-      widget.onCreatorSelected(creator, source: 'deeplink');
+      widget.onCreatorSelected(creator, source: 'deeplink_search_bar');
 
       // Clear search controller only on success
       _searchController.clear();
@@ -348,7 +356,9 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       }
 
       // Decode and normalize name (replace + with space, trim)
-      final searchName = Uri.decodeComponent(creatorParam.replaceAll('+', ' ')).trim().toLowerCase();
+      final searchName = Uri.decodeComponent(creatorParam.replaceAll('+', ' '))
+          .trim()
+          .toLowerCase();
       if (searchName.isEmpty) {
         return; // Empty search name, fail silently
       }
@@ -367,10 +377,11 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
           (c) => c.name.toLowerCase().contains(searchName),
           orElse: () => creators.firstWhere(
             (c) => c.name.toLowerCase() == searchName,
-            orElse: () => creators.first, // fallback, won't be used if null check below
+            orElse: () =>
+                creators.first, // fallback, won't be used if null check below
           ),
         );
-        
+
         // Only select if we found a match
         if (!creator.name.toLowerCase().contains(searchName)) {
           return; // No match found, fail silently
@@ -380,7 +391,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       }
 
       // Select the creator
-      widget.onCreatorSelected(creator, source: 'deeplink');
+      widget.onCreatorSelected(creator, source: 'deeplink_search_bar');
 
       // Clear search controller only on success
       _searchController.clear();
@@ -423,6 +434,15 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
         idList,
         showAddAllToFavorites: true,
         shouldRefreshOnReturn: false,
+      );
+
+      umami.trackEvent(
+        name: 'creator_custom_list',
+        data: {
+          'count': idList.length.toString(),
+          'source': 'deeplink_search_bar',
+          'text': text,
+        },
       );
 
       // Clear search controller only on success
