@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../services/analytics_service.dart';
 import '../services/creator_data_service.dart';
 
 class FABButton extends StatelessWidget {
@@ -44,7 +45,19 @@ class FABButton extends StatelessWidget {
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
-            onTap: () => context.read<CreatorDataProvider>().selectRandomCreator(),
+            onTap: () {
+              final creator = context.read<CreatorDataProvider>().selectRandomCreator();
+              if (creator != null) {
+                umami.trackEvent(
+                  name: 'creator_selected',
+                  data: {
+                    'creator_id': creator.id.toString(),
+                    'creator_name': creator.name,
+                    'source': 'surprise_fab',
+                  },
+                );
+              }
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               child: Row(
@@ -74,7 +87,10 @@ class FABButton extends StatelessWidget {
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
-            onTap: () => _launchGitHubUrl(),
+            onTap: () {
+              umami.trackEvent(name: 'github_tapped');
+              _launchGitHubUrl();
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               child: SvgPicture.asset(

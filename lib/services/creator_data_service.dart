@@ -72,11 +72,12 @@ class CreatorDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectRandomCreator() {
-    if (creators == null || creators!.isEmpty) return;
+  Creator? selectRandomCreator() {
+    if (creators == null || creators!.isEmpty) return null;
 
     final creator = creators![Random().nextInt(creators!.length)];
     setSelectedCreator(creator);
+    return creator;
   }
 
   void setCreatorCustomList(List<int> creatorIds, {bool showAddAllToFavorites = true, bool shouldRefreshOnReturn = true}) {
