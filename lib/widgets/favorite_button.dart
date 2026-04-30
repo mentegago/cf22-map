@@ -38,6 +38,9 @@ class FavoriteButton extends StatelessWidget {
             'creator_id': creator.id.toString(),
             'creator_name': creator.name,
             'favorited': (!isFavorite).toString(),
+            'favorite_count': (context.read<FavoritesService>().favoriteCount +
+                    (isFavorite ? -1 : 1))
+                .toString(),
           },
         );
 

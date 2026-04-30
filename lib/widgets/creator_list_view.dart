@@ -658,12 +658,12 @@ void _copyBoothCodeList(BuildContext context) {
   );
 }
 
-void _shareFavorites(BuildContext context) {
+void _shareFavorites(BuildContext context, {required String source}) {
   final provider = context.read<FavoritesService>();
   final url = provider.getShareableUrl();
   umami.trackEvent(
     name: 'share_favorites_tapped',
-    data: {'count': provider.favorites.length.toString()},
+    data: {'count': provider.favorites.length.toString(), 'source': source},
   );
   Clipboard.setData(ClipboardData(text: url));
   ScaffoldMessenger.of(context).showSnackBar(
@@ -835,7 +835,10 @@ class _ShareFavorites extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        onPressed: () => _shareFavorites(context),
+        onPressed: () => _shareFavorites(
+          context,
+          source: 'main_button',
+        ),
         onLongPress: () => _copyBoothCodeList(context),
       ),
     );
@@ -1063,7 +1066,10 @@ class _FavoritesSectionHeader extends StatelessWidget {
             ),
           ),
           TextButton.icon(
-            onPressed: () => _shareFavorites(context),
+            onPressed: () => _shareFavorites(
+              context,
+              source: 'favorites_header',
+            ),
             onLongPress: () => _copyBoothCodeList(context),
             icon: Icon(
               Icons.share,
