@@ -141,6 +141,32 @@ class _MapScreenState extends State<MapScreen> {
         final compressedCreatorCustomListParam = uri.queryParameters['list'];
         final creatorCustomListParam = uri.queryParameters['custom_list'];
 
+        final String? deeplinkType = compressedCreatorCustomListParam != null
+            ? 'list'
+            : creatorCustomListParam != null
+                ? 'custom_list'
+                : creatorIdParam != null
+                    ? 'creator_id'
+                    : creatorParam != null && creatorParam.isNotEmpty
+                        ? 'creator'
+                        : null;
+
+        if (deeplinkType != null) {
+          final String deeplinkParam = switch (deeplinkType) {
+            'list' => compressedCreatorCustomListParam!,
+            'custom_list' => creatorCustomListParam!,
+            'creator_id' => creatorIdParam.toString(),
+            _ => creatorParam!,
+          };
+          umami.trackEvent(
+            name: 'deeplink_visit',
+            data: {
+              'type': deeplinkType,
+              'param': deeplinkParam,
+            },
+          );
+        }
+
         if (compressedCreatorCustomListParam != null) {
           final creatorProvider = context.read<CreatorDataProvider>();
           final idList =
