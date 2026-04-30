@@ -140,6 +140,7 @@ class _MapScreenState extends State<MapScreen> {
             int.tryParse(uri.queryParameters['creator_id'] ?? '');
         final compressedCreatorCustomListParam = uri.queryParameters['list'];
         final creatorCustomListParam = uri.queryParameters['custom_list'];
+        final source = uri.queryParameters['source'];
 
         final String? deeplinkType = compressedCreatorCustomListParam != null
             ? 'list'
@@ -163,6 +164,7 @@ class _MapScreenState extends State<MapScreen> {
             data: {
               'type': deeplinkType,
               'param': deeplinkParam,
+              'source': source,
             },
           );
         }
