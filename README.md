@@ -16,10 +16,6 @@ Aplikasi web untuk melihat peta booth creator di acara Comifuro 22 (CF22).
 4. Pilih creator untuk lihat lokasi booth mereka
 5. Tap booth di peta untuk lihat detail creator
 
-## Menambahkan Informasi Booth
-
-Jika ingin menambahkan informasi booth, silakan update `config/override.json` override di repository [https://github.com/mentegago/cf22-map-config](https://github.com/mentegago/cf22-map-config)
-
 ## Build (Khusus buat developer)
 
 App ini dibuat menggunakan Flutter.
