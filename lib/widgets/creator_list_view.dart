@@ -727,6 +727,7 @@ class _SeeAllCreatorsButton extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              umami.trackEvent(name: 'return_to_full_list_tapped');
               if (kIsWeb &&
                   context.read<CreatorDataProvider>().shouldRefreshOnReturn) {
                 html.window.location.assign('/');

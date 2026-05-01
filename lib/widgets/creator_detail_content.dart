@@ -319,7 +319,16 @@ class _CreatorDetailContentState extends State<CreatorDetailContent> {
                         child: IconButton(
                           icon: const Icon(Icons.close),
                           tooltip: 'Close',
-                          onPressed: widget.onClose,
+                          onPressed: () {
+                            umami.trackEvent(
+                              name: 'mobile_creator_detail_dismiss_tapped',
+                              data: {
+                                'creator_id': widget.creator.id.toString(),
+                                'creator_name': widget.creator.name,
+                              },
+                            );
+                            widget.onClose?.call();
+                          },
                         ),
                       ),
                   ],

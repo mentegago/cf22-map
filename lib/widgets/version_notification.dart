@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
+import '../services/analytics_service.dart';
 import '../services/version_service.dart';
 
 class VersionNotification extends StatefulWidget {
@@ -69,6 +70,7 @@ class _VersionNotificationState extends State<VersionNotification>
   }
 
   void _dismiss() {
+    umami.trackEvent(name: 'update_notification_dismissed');
     setState(() {
       _isDismissed = true;
     });
@@ -82,6 +84,7 @@ class _VersionNotificationState extends State<VersionNotification>
   }
 
   void _refreshPage() {
+    umami.trackEvent(name: 'update_notification_refreshed');
     html.window.location.reload();
   }
 

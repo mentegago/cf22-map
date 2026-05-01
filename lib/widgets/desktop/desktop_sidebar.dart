@@ -39,6 +39,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
     // Listen to focus changes - show search list when search is focused
     _searchFocusNode.addListener(() {
       if (mounted && _searchFocusNode.hasFocus) {
+        umami.trackEvent(name: 'search_bar_opened');
         setState(() {
           _showSearchList = true;
         });
@@ -147,6 +148,14 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
+                umami.trackEvent(
+                  name: 'search_bar_back_tapped',
+                  data: {
+                    'search_query': _searchController.text,
+                    'creator_id': widget.selectedCreator?.id.toString(),
+                    'creator_name': widget.selectedCreator?.name,
+                  },
+                );
                 setState(() {
                   _showSearchList = false;
                 });
@@ -181,6 +190,14 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       size: 20),
                   onPressed: () {
+                    umami.trackEvent(
+                      name: 'search_bar_clear_tapped',
+                      data: {
+                        'search_query': _searchController.text,
+                        'creator_id': widget.selectedCreator?.id.toString(),
+                        'creator_name': widget.selectedCreator?.name,
+                      },
+                    );
                     _searchController.clear();
                     widget.onClear?.call();
                     _performSearch('');
@@ -191,7 +208,17 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
                   icon: Icon(Icons.close,
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       size: 20),
-                  onPressed: widget.onClear,
+                  onPressed: () {
+                    umami.trackEvent(
+                      name: 'search_bar_clear_tapped',
+                      data: {
+                        'search_query': '',
+                        'creator_id': widget.selectedCreator?.id.toString(),
+                        'creator_name': widget.selectedCreator?.name,
+                      },
+                    );
+                    widget.onClear?.call();
+                  },
                 );
               } else {
                 return const SizedBox(width: 8);

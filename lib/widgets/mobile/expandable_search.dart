@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/creator.dart';
+import '../../services/analytics_service.dart';
 import '../../services/creator_data_service.dart';
 import '../../utils/int_encoding.dart';
 import '../creator_list_view.dart';
@@ -44,6 +45,7 @@ class ExpandableSearchState extends State<ExpandableSearch> {
     // Listen to focus changes to expand (but not collapse)
     _focusNode.addListener(() {
       if (mounted && !_isExpanded && _focusNode.hasFocus) {
+        umami.trackEvent(name: 'search_bar_opened');
         setState(() {
           _isExpanded = true;
         });
@@ -88,6 +90,14 @@ class ExpandableSearchState extends State<ExpandableSearch> {
   }
 
   void _handleClear() {
+    umami.trackEvent(
+      name: 'search_bar_clear_tapped',
+      data: {
+        'search_query': _searchController.text,
+        'creator_id': widget.selectedCreator?.id.toString(),
+        'creator_name': widget.selectedCreator?.name,
+      },
+    );
     setState(() {
       _searchController.clear();
     });
@@ -380,7 +390,17 @@ class ExpandableSearchState extends State<ExpandableSearch> {
                   if (_isExpanded)
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: _collapse,
+                      onPressed: () {
+                        umami.trackEvent(
+                          name: 'search_bar_back_tapped',
+                          data: {
+                            'search_query': _searchController.text,
+                            'creator_id': widget.selectedCreator?.id.toString(),
+                            'creator_name': widget.selectedCreator?.name,
+                          },
+                        );
+                        _collapse();
+                      },
                     )
                   else
                     const Padding(
