@@ -13,6 +13,7 @@ class DesktopSidebar extends StatefulWidget {
   final void Function(Creator, {required String source, String searchQuery})
       onCreatorSelected;
   final VoidCallback? onClear;
+  final VoidCallback? onCreatorDismissed;
 
   const DesktopSidebar({
     super.key,
@@ -20,6 +21,7 @@ class DesktopSidebar extends StatefulWidget {
     this.selectedCreator,
     required this.onCreatorSelected,
     this.onClear,
+    this.onCreatorDismissed,
   });
 
   @override
@@ -36,7 +38,6 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
   void initState() {
     super.initState();
 
-    // Listen to focus changes - show search list when search is focused
     _searchFocusNode.addListener(() {
       if (mounted && _searchFocusNode.hasFocus) {
         umami.trackEvent(name: 'search_bar_opened');
@@ -51,9 +52,9 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
   void didUpdateWidget(DesktopSidebar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Hide search list when creator is selected (from search list or map)
-    // This handles both initial selection and changing selection
-    if (widget.selectedCreator != null && _showSearchList) {
+    if (widget.selectedCreator != null &&
+        widget.selectedCreator != oldWidget.selectedCreator &&
+        _showSearchList) {
       setState(() {
         _showSearchList = false;
       });
@@ -143,22 +144,30 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
       ),
       child: Row(
         children: [
-          // Show back button if creator is selected and search list is shown, otherwise show search icon
-          if (widget.selectedCreator != null && _showSearchList)
+          if (widget.selectedCreator != null)
+            // Dismiss selected creator
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                umami.trackEvent(
-                  name: 'search_bar_back_tapped',
-                  data: {
-                    'search_query': _searchController.text,
-                    'creator_id': widget.selectedCreator?.id.toString(),
-                    'creator_name': widget.selectedCreator?.name,
-                  },
-                );
-                setState(() {
-                  _showSearchList = false;
-                });
+                /*
+                  On creator detail page, it dismisses the creator detail page
+                  On search results page, it goes back to creator detail page (if a creator is still selected)
+                */
+                if (!_showSearchList) {
+                  umami.trackEvent(
+                    name: 'desktop_search_bar_back_dismiss_tapped',
+                    data: {
+                      'creator_id': widget.selectedCreator?.id.toString(),
+                      'creator_name': widget.selectedCreator?.name,
+                    },
+                  );
+                  widget.onCreatorDismissed?.call();
+                } else {
+                  umami.trackEvent(name: 'search_bar_back_tapped');
+                  setState(() {
+                    _showSearchList = false;
+                  });
+                }
               },
             )
           else
