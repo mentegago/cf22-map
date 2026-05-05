@@ -177,6 +177,8 @@ class _MapScreenMobileViewState extends State<MapScreenMobileView> with SingleTi
   }
 
   void _dismissDetail() {
+    _expandableSearchKey.currentState?.expandIfSearching();
+
     if (_visibleCreator == null) {
       widget.onClearSelection();
       return;

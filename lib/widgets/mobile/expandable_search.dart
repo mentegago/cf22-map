@@ -8,7 +8,11 @@ import '../creator_list_view.dart';
 
 class ExpandableSearch extends StatefulWidget {
   final List<Creator> creators;
-  final void Function(Creator, {required String source, String searchQuery}) onCreatorSelected;
+  final void Function(
+    Creator, {
+    required String source,
+    String searchQuery,
+  }) onCreatorSelected;
   final VoidCallback? onClear;
   final Creator? selectedCreator;
 
@@ -38,6 +42,14 @@ class ExpandableSearchState extends State<ExpandableSearch> {
     _performSearch(query);
   }
 
+  void expandIfSearching() {
+    if (_searchController.text.isNotEmpty) {
+      setState(() {
+        _isExpanded = true;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,12 +69,14 @@ class ExpandableSearchState extends State<ExpandableSearch> {
   void didUpdateWidget(ExpandableSearch oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Reset search when detail sheet is closed (selectedCreator becomes null)
+    // When detail sheet closes, return to search if a query is active, otherwise reset
     if (oldWidget.selectedCreator != null && widget.selectedCreator == null) {
-      setState(() {
-        _searchController.clear();
-        _isExpanded = false;
-      });
+      if (_searchController.text.isEmpty) {
+        setState(() {
+          _searchController.clear();
+          _isExpanded = false;
+        });
+      }
     }
   }
 
@@ -86,7 +100,11 @@ class ExpandableSearchState extends State<ExpandableSearch> {
 
   void _handleCreatorTap(Creator creator) {
     _collapse();
-    widget.onCreatorSelected(creator, source: 'list', searchQuery: _searchController.text);
+    widget.onCreatorSelected(
+      creator,
+      source: 'list',
+      searchQuery: _searchController.text,
+    );
   }
 
   void _handleClear() {
