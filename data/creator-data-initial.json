@@ -1,5 +1,5 @@
 {
-  "version": 69,
+  "version": 72,
   "creators": [
     {
       "id": 7851,
@@ -6513,6 +6513,10 @@
       "day": "BOTH",
       "urls": [
         {
+          "title": "Instagram",
+          "url": "https://instagram.com/ichigo.print"
+        },
+        {
           "title": "Twitter",
           "url": "https://x.com/Awooofa"
         },
@@ -6524,18 +6528,30 @@
       "raw_fandoms": [
         "Arknights Endfield",
         "Umamusume",
-        "Hololive"
+        "Genshin Impact",
+        "Hsr",
+        "Lads"
       ],
       "fandoms": [
         "Arknights: Endfield",
-        "Hololive",
+        "Genshin Impact",
+        "Honkai Star Rail",
+        "Love and Deepspace",
         "Uma Musume"
       ],
       "works_type": [
         "Commission",
-        "Goods"
+        "Goods",
+        "Handmade Crafts"
       ],
-      "sampleworks_images": [],
+      "sampleworks_images": [
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/d2c24e8a-c5d3-4b9c-902e-de5e722c6232/AE-49.jpg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/3c624b44-841b-406e-bfa6-4c6d45379bbc/AE-49.jpg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/9fde23b1-91d4-40d1-aeb0-8f2dfe25873d/AE-49.jpg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/bd964902-22da-4a7c-b592-777c8a8ea6f8/AE-49.jpeg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/842346af-51c1-4226-ae09-e5c7d93c6f0f/AE-49.jpeg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/60876014-e632-49e8-8d56-326a8116bc2d/eafc78a4-0265-4a5e-946c-cbea9f0c3ad4/AE-49.jpeg"
+      ],
       "circle_cut": "https://kumxjefxtrrpzalmwvvr.supabase.co/storage/v1/object/public/circle-cut-22/aWoooFaStore X Ichigo.jpg",
       "circle_code": "AE-49"
     },
@@ -14843,14 +14859,14 @@
       "fandoms": [
         "Deltarune",
         "Doki Doki Literature Club!",
-        "Needy Girl Overdose (ngo)",
+        "Needy Streamer Overload",
         "Omori",
         "Original",
-        "Toilet Bound Hanako Kun (tbhk)",
+        "Toilet-Bound Hanako-kun",
         "Uma Musume",
         "Undertale",
         "Vocaloid",
-        "Witch Hat Atelier (wha)"
+        "Witch Hat Atelier"
       ],
       "works_type": [
         "Artbook",
@@ -19206,7 +19222,7 @@
         "Cookie Run: Kingdom",
         "Crafts",
         "Genshin Impact",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Honkai Star Rail",
         "Identity V",
         "Love and Deepspace",
@@ -23861,7 +23877,7 @@
         "Baldur's Gate 3",
         "Final Fantasy XIV",
         "Genshin Impact",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Hunter x Hunter",
         "Jujutsu Kaisen",
         "Lovely Complex",
@@ -26117,7 +26133,7 @@
         "Cortis",
         "ENHYPEN",
         "Haikyu!!",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Lngshot",
         "Natsume's Book of Friends",
         "Original",
@@ -29738,7 +29754,7 @@
         "Blue Lock",
         "Chainsaw Man",
         "Genshin Impact",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Honkai Star Rail",
         "Limbus Company",
         "Original",
@@ -31036,7 +31052,7 @@
       ],
       "raw_fandoms": [
         "Jojo's Bizzare Adventure",
-        "Original",
+        "Original Comic",
         "Original Song",
         "Utau",
         "Charisma House",
@@ -31051,7 +31067,6 @@
         "JoJo's Bizarre Adventure",
         "Left 4 Dead",
         "Original",
-        "Original Song",
         "Resident Evil",
         "Sengoku Basara",
         "UTAU"
@@ -31067,7 +31082,7 @@
       "sampleworks_images": [
         "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/c19821c4-0e1c-406b-8ce2-92a1647e61d1/H-45b.jpg",
         "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/9953a0b1-e7b2-47a2-b654-a9cbb0b57b19/H-45b.jpg",
-        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/8901a5f4-2da8-43d7-93ab-cbf2e3e8028d/H-45b.jpg",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/363311dd-8fca-43e5-9129-4fb6e112a8bf/H-45b.jpg",
         "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/69f04dbb-3867-4d2f-a75b-59d1829fa644/H-45b.jpg",
         "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/6407192c-0b7b-4db1-b476-a64ebc7364c1/H-45b.jpg",
         "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/55fadfa1-68d2-4f8d-b404-f85d13de1974/9e51ba01-ef22-4731-aab5-baaa256261f3/H-45b.jpg",
@@ -42439,7 +42454,7 @@
         "Dispatch",
         "Hannibal",
         "Heated Rivalry",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Minecraft",
         "Mouthwashing",
         "Omori",
@@ -42674,7 +42689,7 @@
         "Littlest Pet Shop",
         "Metal Gear Solid",
         "My Little Pony",
-        "Nitro Chiral",
+        "Nitro+CHiRAL",
         "Original",
         "Rain World",
         "Resident Evil",
@@ -45476,7 +45491,7 @@
         "Get A Snack At 4 AM",
         "Grace",
         "Harry Potter",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Honkai Star Rail",
         "K-Pop: Demon Hunters",
         "Limbus Company",
@@ -47625,8 +47640,12 @@
         "Handmade Crafts"
       ],
       "sampleworks_images": [
-        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/9bbd9e58-c526-44c0-9a1b-bb4eab261a02/M-24b.png",
-        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/d3e9064a-b590-4bbb-a80a-4a2d5aa4d725/M-24b.png"
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/a0bb9871-b7f7-4d2c-aaa0-49edb157d14a/M-24b.png",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/eec5f524-f358-4c8d-840e-9999d09dc8d1/M-24b.png",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/cae5cb08-1d18-4fb2-aa25-018b7073dc31/M-24b.png",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/7914b8b5-a28b-40df-aeeb-04ee7c691065/M-24b.png",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/20ecc020-be33-4722-a67e-75370fa4f761/M-24b.png",
+        "https://kumxjefxtrrpzalmwvvr.supabase.in/storage/v1/object/public/circle-sampleworks-22/f5386415-4bb9-482b-9ede-0eb07394d973/9cfeab8b-9364-4d6d-8c37-4f12abd91b61/M-24b.png"
       ],
       "circle_cut": "https://kumxjefxtrrpzalmwvvr.supabase.co/storage/v1/object/public/circle-cut-22/Taro Pancake.jpg",
       "circle_code": "M-24b"
@@ -50880,7 +50899,7 @@
         "Frieren: Beyond Journey's End",
         "Genshin Impact",
         "Gomens",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Hololive",
         "Honkai Star Rail",
         "Horimiya",
@@ -53862,7 +53881,7 @@
         "Delicious in Dungeon",
         "Holostars",
         "Honkai Star Rail",
-        "Love & Deepspace (lads)",
+        "Love and Deepspace",
         "Natsume's Book of Friends",
         "No Home",
         "NU: Carnival",
@@ -54201,7 +54220,7 @@
         "Detective Conan",
         "Erha",
         "Grandmaster of Demonic Cultivation",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "The Scum Villain's Self-Saving System",
         "Yakuza"
       ],
@@ -64929,7 +64948,7 @@
         "Genshin Impact",
         "Grandmaster of Demonic Cultivation",
         "Hannibal",
-        "Heaven Official's Blessing",
+        "Heaven Official's Blessing (Tian Guan Ci Fu)",
         "Honkai Star Rail",
         "HoYoverse",
         "JWQS",

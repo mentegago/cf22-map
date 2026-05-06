@@ -26,6 +26,7 @@ class CreatorDataProvider extends ChangeNotifier {
   Map<String, List<Creator>>? _boothToCreators;
   Map<String, List<Creator>>? _boothToCreatorCustomList;
   Map<int, Creator>? _creatorById;
+  List<String> _popularSearches = [];
   bool _isLoading = true;
   String? _error;
   CreatorDataStatus _status = CreatorDataStatus.idle;
@@ -57,6 +58,7 @@ class CreatorDataProvider extends ChangeNotifier {
   bool get isCreatorCustomListMode => _creatorCustomListIds != null;
   bool get showAddAllToFavorites => _showAddAllToFavorites;
   bool get shouldRefreshOnReturn => _shouldRefreshOnReturn;
+  List<String> get popularSearches => _popularSearches;
 
   void onCreatorDataServiceInitialized(Function callback) {
     _onInitialized = callback;
@@ -139,11 +141,12 @@ class CreatorDataProvider extends ChangeNotifier {
     
     // If we have cached data and it's newer or equal to bundled, use cached
     if (cachedVersion != null && bundledVersion != null && cachedVersion >= bundledVersion) {
-      final cachedCreators = await _getCachedCreatorData();
+      final (cachedCreators, cachedPopularSearches) = await _getCachedCreatorData();
       if (cachedCreators != null && cachedCreators.isNotEmpty) {
         // Sort cached creators by name
         final sortedCreators = List<Creator>.from(cachedCreators);
         sortedCreators.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+        _popularSearches = cachedPopularSearches;
         _setCreators(sortedCreators);
         return;
       }
@@ -151,13 +154,14 @@ class CreatorDataProvider extends ChangeNotifier {
 
     // Load bundled data (either no cache, or bundled is newer)
     final jsonString = await rootBundle.loadString('data/creator-data-initial.json');
-    final dynamic jsonData = json.decode(jsonString);
-    
+    final Map<String, dynamic> jsonData = json.decode(jsonString) as Map<String, dynamic>;
+
     // Handle new JSON structure with version and creators array, and sort by name
     final List<dynamic> creatorsJson = jsonData['creators'] as List<dynamic>;
     final creators = creatorsJson.map((json) => Creator.fromJson(json)).toList();
     creators.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
+    _popularSearches = _parsePopularSearches(jsonData);
     _setCreators(creators);
     
     // Cache the bundled data so it's treated the same as cached data
@@ -258,6 +262,12 @@ class CreatorDataProvider extends ChangeNotifier {
     return creatorMap;
   }
 
+  List<String> _parsePopularSearches(Map<String, dynamic> jsonData) {
+    final raw = jsonData['popular_searches'];
+    if (raw is List) return raw.whereType<String>().toList();
+    return [];
+  }
+
   /// Set creators and update booth mapping
   void _setCreators(List<Creator> creators) {
     _creators = creators;
@@ -315,13 +325,14 @@ class CreatorDataProvider extends ChangeNotifier {
         }
 
         final creatorsJson = jsonData['creators'] as List<dynamic>;
-        
+
         // Parse creators
         final creators = creatorsJson.map((json) => Creator.fromJson(json)).toList();
-        
+
         // Cache the data
         await _cacheCreatorData(jsonData);
-        
+
+        _popularSearches = _parsePopularSearches(jsonData);
         return creators;
       } else {
         print('Failed to fetch creator data: ${response.statusCode}');
@@ -334,29 +345,30 @@ class CreatorDataProvider extends ChangeNotifier {
   }
 
   /// Get cached creator data from local storage
-  Future<List<Creator>?> _getCachedCreatorData() async {
+  Future<(List<Creator>?, List<String>)> _getCachedCreatorData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final cachedDataString = prefs.getString(_cachedDataKey);
-      
+
       if (cachedDataString == null) {
-        return null;
+        return (null, <String>[]);
       }
 
       final jsonData = json.decode(cachedDataString) as Map<String, dynamic>;
-      
+
       // Validate JSON structure
       if (!jsonData.containsKey('version') || !jsonData.containsKey('creators')) {
         print('Invalid cached creator data structure: missing version or creators field');
-        return null;
+        return (null, <String>[]);
       }
-      
+
       final creatorsJson = jsonData['creators'] as List<dynamic>;
-      
-      return creatorsJson.map((json) => Creator.fromJson(json)).toList();
+      final creators = creatorsJson.map((json) => Creator.fromJson(json)).toList();
+      final popularSearches = _parsePopularSearches(jsonData);
+      return (creators, popularSearches);
     } catch (e) {
       print('Error loading cached creator data: $e');
-      return null;
+      return (null, <String>[]);
     }
   }
 
@@ -455,7 +467,7 @@ class CreatorDataProvider extends ChangeNotifier {
   /// Check if we have valid cached data available
   Future<bool> hasCachedData() async {
     try {
-      final cachedCreators = await _getCachedCreatorData();
+      final (cachedCreators, _) = await _getCachedCreatorData();
       return cachedCreators != null && cachedCreators.isNotEmpty;
     } catch (e) {
       return false;
@@ -497,7 +509,8 @@ class CreatorDataProvider extends ChangeNotifier {
   static Future<List<Creator>?> getCachedCreatorData() async {
     try {
       final provider = CreatorDataProvider();
-      return await provider._getCachedCreatorData();
+      final (creators, _) = await provider._getCachedCreatorData();
+      return creators;
     } catch (e) {
       print('Error getting cached creator data: $e');
       return null;

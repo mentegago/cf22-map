@@ -75,8 +75,14 @@ class _CreatorListViewState extends State<CreatorListView> {
 
   // Get fandom suggestions based on search query
   List<String> get _fandomSuggestions {
-    // If no search query, return top 5 most popular fandoms
+    // If no search query, use popular_searches from data if available and not in custom list mode
     if (widget.searchQuery.isEmpty) {
+      final creatorDataProvider = context.read<CreatorDataProvider>();
+      if (!creatorDataProvider.isCreatorCustomListMode &&
+          creatorDataProvider.popularSearches.isNotEmpty) {
+        return creatorDataProvider.popularSearches;
+      }
+
       final allFandoms = _allUniqueFandoms
           .map((fandom) => (fandom, _fandomPopularity[fandom] ?? 0))
           .sorted((a, b) {
